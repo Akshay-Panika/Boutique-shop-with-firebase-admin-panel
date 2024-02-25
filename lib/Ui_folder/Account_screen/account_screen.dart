@@ -25,6 +25,7 @@ class _AccountScreenState extends State<AccountScreen> {
       return  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const FirstScreen()));
     });
   }
+
   ///___ PhoneNumber
   final Uri _phoneNumber = Uri.parse('tel:123-456-7890');
   Future<void> phoneNumber() async {
@@ -67,13 +68,14 @@ class _AccountScreenState extends State<AccountScreen> {
                           child: SizedBox(height: 120,width: 120,
                             child: CardWidget(
                               child: CachedNetworkImage(
-                                imageUrl: userData['userImage'].toString(),fit: BoxFit.fill,
+                                imageUrl: userData['userImage'] != null ? userData['userImage'].toString() : '',
                                 placeholder: (context, url) => const Padding(
                                   padding: EdgeInsets.all(35.0),
                                   child: CircularProgressIndicator(color: Colors.black54,),
                                 ),
-                                errorWidget: (context, url, error) => const Icon(Icons.image,color: Colors.black54,),
+                                errorWidget: (context, url, error) => const Icon(Icons.image, color: Colors.black54,),
                               ),
+
                             ),
                           ),
                         ),

@@ -32,65 +32,60 @@ class TotalOrderScreen extends StatelessWidget {
                   child: CardWidget(
                     child: Stack(
                       children: [
-                        Column(
+                        Flex(
+                          direction: Axis.vertical,
                           children: [
-                            Card(elevation: 0,
-                                child:Expanded(
-                                 // fit: BoxFit.contain,
-                                  //height:MediaQuery.of(context).size.height,
-                                  child: ListView.builder(
-                                    shrinkWrap: true,
-                                    itemCount: data['items'].length,
-                                    itemBuilder: (context, index) {
-                                      return  Row(
-                                        children: [
-                                          ///___ Image
-                                          Container(height:120,width: 120,
-                                              margin: const EdgeInsets.only(right:10),
-                                              child: Card(child: Image.network(data['items'][index]['productImage'],fit: BoxFit.fill,))),
+                            ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: data['items'].length,
+                              itemBuilder: (context, index) {
+                                return  Row(
+                                  children: [
+                                    ///___ Image
+                                    Container(height:120,width: 120,
+                                        margin: const EdgeInsets.only(right:10),
+                                        child: Card(child: Image.network(data['items'][index]['productImage'],fit: BoxFit.fill,))),
 
-                                          ///___ data
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              10.height,
-                                              Text(data['items'][index]['productName'],style:titleTextStyleBlack,),
+                                    ///___ data
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        10.height,
+                                        Text(data['items'][index]['productName'],style:titleTextStyleBlack,),
 
-                                              Row(
-                                                children: [
-                                                  Text("₹ ${data['items'][index]['oldPrice']}",style: textStyleGrey13,),
-                                                  5.width,
-                                                  Text("₹ ${data['items'][index]['newPrice']}",style: textStyleBlack13,),
-                                                ],
-                                              ),
+                                        Row(
+                                          children: [
+                                            Text("₹ ${data['items'][index]['oldPrice']}",style: textStyleGrey13,),
+                                            5.width,
+                                            Text("₹ ${data['items'][index]['newPrice']}",style: textStyleBlack13,),
+                                          ],
+                                        ),
 
-                                              5.height,
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                children: [
-                                                  Row(children: [
-                                                    Text("( ${data['items'][index]['productType']} )",style:textStyleBlack13,),
-                                                    5.width,
-                                                    Text("Size- ${data['items'][index]['productSize']}",style: textStyleBlack13),
-                                                  ],),
-                                                  10.width,
-                                                  Row(children: [
-                                                    Text(data['items'][index]['productRatting'].toString(),style: textStyleBlack13,),
-                                                    const Icon(Icons.star,color: Colors.amber,size: 16,)
-                                                  ],)
-                                                ],
-                                              ),
-                                              10.height,
-                                              Text("Quantity- ${data['items'][index]['productQuantity']}",style: textStyleBlack13,),
-                                              Text("Price. ₹ ${data['items'][index]['productPrice']}",style: textStyleBlack13,),
-                                            ],
-                                          ),
-                                        ],
-                                      );
-                                    },),
-                                )
-                            ),
-                            10.height,
+                                        5.height,
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(children: [
+                                              Text("( ${data['items'][index]['productType']} )",style:textStyleBlack13,),
+                                              5.width,
+                                              Text("Size- ${data['items'][index]['productSize']}",style: textStyleBlack13),
+                                            ],),
+                                            10.width,
+                                            Row(children: [
+                                              Text(data['items'][index]['productRatting'].toString(),style: textStyleBlack13,),
+                                              const Icon(Icons.star,color: Colors.amber,size: 16,)
+                                            ],)
+                                          ],
+                                        ),
+                                        10.height,
+                                        Text("Quantity- ${data['items'][index]['productQuantity']}",style: textStyleBlack13,),
+                                        Text("Price. ₹ ${data['items'][index]['productPrice']}",style: textStyleBlack13,),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              },),
+                            15.height,
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -98,6 +93,7 @@ class TotalOrderScreen extends StatelessWidget {
                                 Text("${data['time']}, ${data['date']}",style: const TextStyle(color: Colors.black,fontSize: 15),),
                               ],
                             ),
+                            5.height
                           ],
                         ),
 
