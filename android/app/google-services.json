@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "993669966420",
+    "project_id": "boutique-shop-44f26",
+    "storage_bucket": "boutique-shop-44f26.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:993669966420:android:4849bdd9e5ed3b7a835bc1",
+        "android_client_info": {
+          "package_name": "com.example.boutique_shop"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAeMCj2yK6OJoTwB_gjfxA_Ra0VjFBOL9M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
