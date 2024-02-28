@@ -72,89 +72,94 @@ class _FavoriteScreenState extends State<FavoriteScreen> {
               child:StreamBuilder(
                 stream: _stream,
                 builder: (context, snapshot) {
-                  if(snapshot.hasData && snapshot.data != null){
-                    return Padding(
-                      padding:  const EdgeInsets.symmetric(horizontal: 12.0),
-                      child: GridView.builder(
-                        itemCount:snapshot.data!.docs.length,
-                        physics: const BouncingScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 2/3.1,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 15
-                        ),
-                        itemBuilder: (context, index) {
+                  if(snapshot.connectionState == ConnectionState.active){
+                    if(snapshot.hasData && snapshot.data != null){
+                      return Padding(
+                        padding:  const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: GridView.builder(
+                          itemCount:snapshot.data!.docs.length,
+                          physics: const BouncingScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 2/3.1,
+                              crossAxisSpacing: 10,
+                              mainAxisSpacing: 15
+                          ),
+                          itemBuilder: (context, index) {
 
-                          var data = snapshot.data!.docs[index];
-                          ///___ OnTap function
-                          return   InkWell(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsScreen( productType: data['productType'],
-                                productName: data['productName'].toString(),productRatting:data['productRatting'],oldPrice:data['oldPrice'],
-                                newPrice: data['newPrice'], productDescription: data['productDescription'],productId: data['productId'],
-                                productImage:data['productImage'],
-                              )));
-                            },
-                            child: Column(
-                              children: [
+                            var data = snapshot.data!.docs[index];
+                            ///___ OnTap function
+                            return   InkWell(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailsScreen( productType: data['productType'],
+                                  productName: data['productName'].toString(),productRatting:data['productRatting'],oldPrice:data['oldPrice'],
+                                  newPrice: data['newPrice'], productDescription: data['productDescription'],productId: data['productId'],
+                                  productImage:data['productImage'],
+                                )));
+                              },
+                              child: Column(
+                                children: [
 
-                                ///___ Image container
-                                Expanded(child: ContainerWidget(
-                                  color: Colors.grey.shade200,
-                                  networkImage: NetworkImage(data['productImage'][0]),
-                                  child:  Align(alignment: Alignment.topRight,
+                                  ///___ Image container
+                                  Expanded(child: ContainerWidget(
+                                    color: Colors.grey.shade200,
+                                    networkImage: NetworkImage(data['productImage'][0]),
+                                    child:  Align(alignment: Alignment.topRight,
 
-                                    ///___ Favorite button
-                                    child: InkWell(
-                                        onTap: () {
-                                          favoriteProvider.removeFromFavorites(productId:data['productId'] );
-                                        },
-                                        child: const Icon(Icons.favorite,size: 25,
-                                          color: Colors.red,)),
-                                  ),
-                                )),
+                                      ///___ Favorite button
+                                      child: InkWell(
+                                          onTap: () {
+                                            favoriteProvider.removeFromFavorites(productId:data['productId'] );
+                                          },
+                                          child: const Icon(Icons.favorite,size: 25,
+                                            color: Colors.red,)),
+                                    ),
+                                  )),
 
 
-                                ///___ Text data
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 2,vertical:5),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Expanded(child: Text(data['productName'].toString(),style: titleTextStyleBlack,overflow:TextOverflow.ellipsis)),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.end,
-                                            crossAxisAlignment: CrossAxisAlignment.center,
-                                            children: [
-                                              Text(data['productRatting'].toString(),style: textStyleBlack13,),
-                                              const Icon(Icons.star,color: Colors.amber,size: 20,)
-                                            ],
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text("₹ ${data['oldPrice'].toString()}",style: textStyleGrey13,),
-                                          5.width,
-                                          Text("₹ ${data['newPrice'].toString()}",style: textStyleBlack13,),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          );
-                        },),
-                    );
+                                  ///___ Text data
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(horizontal: 2,vertical:5),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Expanded(child: Text(data['productName'].toString(),style: titleTextStyleBlack,overflow:TextOverflow.ellipsis)),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              crossAxisAlignment: CrossAxisAlignment.center,
+                                              children: [
+                                                Text(data['productRatting'].toString(),style: textStyleBlack13,),
+                                                const Icon(Icons.star,color: Colors.amber,size: 20,)
+                                              ],
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            Text("₹ ${data['oldPrice'].toString()}",style: textStyleGrey13,),
+                                            5.width,
+                                            Text("₹ ${data['newPrice'].toString()}",style: textStyleBlack13,),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          },),
+                      );
+                    }
+                    else{
+                      return const Center(child:Text("No data",style: TextStyle(fontSize: 18)));
+                    }
                   }
                   else{
-                    return const Center(child:Text("No data",style: TextStyle(fontSize: 18)));
+                    return const Center(child: CircularProgressIndicator(color: Colors.black54,),);
                   }
                 },
               ),
