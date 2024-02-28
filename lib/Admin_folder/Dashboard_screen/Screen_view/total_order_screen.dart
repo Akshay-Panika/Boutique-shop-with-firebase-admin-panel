@@ -37,6 +37,7 @@ class TotalOrderScreen extends StatelessWidget {
                           children: [
                             ListView.builder(
                               shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
                               itemCount: data['items'].length,
                               itemBuilder: (context, index) {
                                 return  Row(

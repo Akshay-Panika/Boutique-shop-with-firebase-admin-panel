@@ -99,116 +99,112 @@ class _UploadProductState extends State<UploadProduct> {
 
   @override
   Widget build(BuildContext context) {
-    return  SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20.0),
-        child: Column(
-          children: [
-            50.height,
+    return  Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      child: Column(
+        children: [
+          50.height,
 
-            /// Categories type
-            DropdownButton(
-              items: productType
-                  .map((value) => DropdownMenuItem(
-                value: value,
-                child: Text(
-                  value,
-                  style: const TextStyle(color: Colors.black),
-                ),
-              )
-              ).toList(),
-              onChanged: (selectedTypeValue) {
-                setState(() {
-                  selectedType =selectedTypeValue;
-                });
-              },
-              value:selectedType,
-              isExpanded: false,
-              hint: const Text("Select product type"),
-            ),
-            ///___ Text field
-            TextFieldWidget(hintText: "Product name", controller: nameController),
-            TextFieldWidget(hintText: "Product old price", controller: oldPriceController),
-            TextFieldWidget(hintText: "Product new price", controller: newPriceController),
-            TextFieldWidget(hintText: "Product ratting", controller: rattingController),
-            TextFieldWidget(hintText: "Product description", controller: descriptionController),
-
-            30.height,
-            SizedBox(height: 200,
-              child: imagesList.isEmpty // If no images is selected
-                  ?  CardWidget(
-                  color: Colors.grey.shade100,
-                  child:  const Center(child: Text("Image collection is empty",),))
-                  : Expanded(
-                    child: GridView.builder(
-                itemCount: imagesList.length,
-                gridDelegate:
-                const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,crossAxisSpacing: 5,mainAxisSpacing: 5
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                    return CardWidget(child: Image.file(imagesList[index],fit: BoxFit.fill,));
-                },
+          /// Categories type
+          DropdownButton(
+            items: productType
+                .map((value) => DropdownMenuItem(
+              value: value,
+              child: Text(
+                value,
+                style: const TextStyle(color: Colors.black),
               ),
-                  ),
+            )
+            ).toList(),
+            onChanged: (selectedTypeValue) {
+              setState(() {
+                selectedType =selectedTypeValue;
+              });
+            },
+            value:selectedType,
+            isExpanded: false,
+            hint: const Text("Select product type"),
+          ),
+          ///___ Text field
+          TextFieldWidget(hintText: "Product name", controller: nameController),
+          TextFieldWidget(hintText: "Product old price", controller: oldPriceController),
+          TextFieldWidget(hintText: "Product new price", controller: newPriceController),
+          TextFieldWidget(hintText: "Product ratting", controller: rattingController),
+          TextFieldWidget(hintText: "Product description", controller: descriptionController),
+
+          30.height,
+            Expanded(
+            child: imagesList.isEmpty // If no images is selected
+                ?  CardWidget(
+                color: Colors.grey.shade100,
+                child:  const Center(child: Text("Image collection is empty",),))
+                : GridView.builder(
+              itemCount: imagesList.length,
+              gridDelegate:
+              const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 3,crossAxisSpacing: 5,mainAxisSpacing: 5
+              ),
+              itemBuilder: (BuildContext context, int index) {
+                return CardWidget(child: Image.file(imagesList[index],fit: BoxFit.fill,));
+              },
             ),
+          ),
 
 
-            ///___ Function button
-            20.height,
-            Padding(
-              padding: const EdgeInsets.only(bottom:100.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
+          ///___ Function button
+          20.height,
+          Padding(
+            padding: const EdgeInsets.only(bottom:100.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
 
-                  ///___ Upload thumbnail
-                  Expanded(
-                    child: InkWell(
-                      child: const CardWidget(
-                          color: Colors.black54,
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(vertical: 8.0),
-                            child: Center(child: Text("Upload image",style: TextStyle(fontSize:15,color: Colors.white),)),
-                          )),
-                      onTap: () {
-                        picMultiImageFromGallery();
-                      },
-                    ),
-                  ),
-
-                  5.width,
-                  ///___ Save data
-                  InkWell(
-                    child:isLoading? const Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 50.0),
-                      child: SizedBox(height: 30,width: 30,child: CircularProgressIndicator(color: Colors.black54,)),
-                    ):
-                    const CardWidget(
-                      color: Colors.black54,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 28,vertical: 8),
-                        child: Center(child: Text("save data",style: TextStyle(color: Colors.white),),),
-                      ),
-                    ),
-                    onTap: ()async{
-                      setState(() {
-                        isLoading =true;
-                      });
-                      try{
-                        await saveDataFromFirebase();
-                      }finally{
-                        setState(() {
-                          isLoading = false;
-                        });
-                      }
+                ///___ Upload thumbnail
+                Expanded(
+                  child: InkWell(
+                    child: const CardWidget(
+                        color: Colors.black54,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 8.0),
+                          child: Center(child: Text("Upload image",style: TextStyle(fontSize:15,color: Colors.white),)),
+                        )),
+                    onTap: () {
+                      picMultiImageFromGallery();
                     },
                   ),
-                ],
-              ),
+                ),
+
+                5.width,
+                ///___ Save data
+                InkWell(
+                  child:isLoading? const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 50.0),
+                    child: SizedBox(height: 30,width: 30,child: CircularProgressIndicator(color: Colors.black54,)),
+                  ):
+                  const CardWidget(
+                    color: Colors.black54,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 28,vertical: 8),
+                      child: Center(child: Text("save data",style: TextStyle(color: Colors.white),),),
+                    ),
+                  ),
+                  onTap: ()async{
+                    setState(() {
+                      isLoading =true;
+                    });
+                    try{
+                      await saveDataFromFirebase();
+                    }finally{
+                      setState(() {
+                        isLoading = false;
+                      });
+                    }
+                  },
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

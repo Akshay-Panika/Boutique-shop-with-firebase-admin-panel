@@ -57,12 +57,10 @@ class _PopularProductState extends State<PopularProduct> {
                         },
                         child: Column(
                           children: [
-
-                            ///___ Image container
+                               ///___ Image container
                             Expanded(child: ContainerWidget(
                               color: Colors.grey.shade200,
                               networkImage: NetworkImage(data['productImage'][0]),
-
 
                               ///___ Favorite button
                               child: Align(alignment: Alignment.topRight,
@@ -83,8 +81,7 @@ class _PopularProductState extends State<PopularProduct> {
                                     favoriteProvider.selectedFavoriteProduct.contains(data['productId'])?
                                     Icons.favorite: Icons.favorite_border,
                                     color:favoriteProvider.selectedFavoriteProduct.contains(data['productId'])?
-                                    Colors.red:Colors.grey,),
-                                ) ,
+                                    Colors.red:Colors.grey,),                                ) ,
                               ),
                             )),
 
